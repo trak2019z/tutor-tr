@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/4.1.2/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" th:href="@{/css/main.css}"
+          href="../../css/main.css" />
+
+</head>
+<body>
+<div th:replace="headers/hormenu :: header"/>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <h2 style="color:#B32F24">Ups! Coś poszło nie tak...</h2>
+            <img class="img-fluid" th:src="@{${'/img/error.png' }}" alt="Error"/>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

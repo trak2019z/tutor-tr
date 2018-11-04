@@ -1,0 +1,17 @@
+body {
+    background-color: #1A1A1A;
+    color:#B7B7B7;
+}
+.navbar-nav > li {
+    float: none;
+    display: inline-block;
+}
+.navbar-nav > li.navbar-right {
+    float: right !important;
+}
+.bg-tutbar{
+    background-color: #607625; !important;
+}
+.btn-sub{
+    background-color: #607625; !important;
+}

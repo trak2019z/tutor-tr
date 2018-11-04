@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/4.1.2/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" th:href="@{/css/main.css}"
+          href="../../css/main.css"/>
+    <title>Zarejestruj</title>
+
+
+</head>
+<body>
+<div th:replace="headers/hormenu :: header"/>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Zarejestruj się</h3>
+                </div>
+                <div class="panel-body">
+                    <form method="post">
+                        <fieldset>
+                            <div class="form-group">
+                                <input class="form-control" autocomplete="off" type="text" name="username" placeholder="Login"/>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="password" name="password" placeholder="Hasło"/>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" autocomplete="off" type="text" name="email" placeholder="Email"/>
+                            </div>
+                            <input type="submit"  class="btn btn-lg btn-sub btn-block" value="Zarejestruj"/>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

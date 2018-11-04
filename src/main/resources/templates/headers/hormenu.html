@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/4.1.2/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" th:href="@{/css/main.css}"
+          href="../../css/main.css"/>
+
+</head>
+<body>
+
+<div th:fragment="header">
+    <!-- this is horizontal menu -->
+    <nav class="navbar navbar-dark bg-tutbar navbar-expand-md">
+        <a class="navbar-brand" href="/"><img th:src="@{${'/img/logo.png'}}" width="60" height="40" class="d-inline-block mr-1 align-bottom" alt="Tutor.pl"/>
+
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainmenu">
+            <ul class="navbar-nav">
+                <td sec:authorize="isAuthenticated()">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/mytutorials">Moje tutoriale</a>
+                    </li>
+                </td>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <td sec:authorize="isAnonymous()">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Logowanie</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Rejestracja</a>
+                    </li>
+                </td>
+                <td sec:authorize="isAuthenticated()">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Wyloguj</a>
+                    </li>
+                </td>
+            </ul>
+        </div>
+
+    </nav>
+    <script src="webjars/jquery/3.3.1/jquery.min.js"></script>
+    <script src="webjars/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+</div>
+
+
+</body>
+</html>
