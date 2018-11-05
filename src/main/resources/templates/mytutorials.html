@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
 
     <link rel="stylesheet" type="text/css"
-          href="webjars/bootstrap/4.1.2/css/bootstrap.min.css" />
+          href="webjars/bootstrap/4.1.2/css/bootstrap.min.css"/>
 
     <link rel="stylesheet" th:href="@{/css/main.css}"
-          href="../../css/main.css" />
+          href="../../css/main.css"/>
 
 </head>
 <body>
@@ -15,7 +15,17 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-6 col-md-4 col-lg-3 ">
+        <div class="col-md-2 p-l-0 p-r-0 " id="sidebar">
+            <div class="list-group panel">
+                <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-film"></i> <span
+                        class="hidden-sm-down">Stwórz nowy tutorial</span></a>
+                <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-film"></i> <span
+                        class="hidden-sm-down">...</span></a>
+
+            </div>
+
+        </div>
+        <div class="col-md-3 ">
             <table>
                 <th:block th:each="t : ${tutorials}">
                     <tr>
@@ -39,5 +49,7 @@
         </div>
     </div>
 </div>
+
+
 </body>
 </html>

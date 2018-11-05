@@ -13,8 +13,31 @@
 <body>
 <div th:replace="headers/hormenu :: header"/>
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-lg-3 ">
+            <table>
+                <th:block th:each="t : ${tutorials}">
+                    <tr>
+                        <td><img class="img-fluid" th:src="@{${'/img/'+ t.imgName }}" alt="TutImg"/></td>
+                    </tr>
+                    <tr>
+                        <td th:text="${t.name}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="${t.description}"></td>
+                    </tr>
+                    <tr>
+                        <td th:text="${t.marks}"></td>
+                    </tr>
+                    <tr>
+                        <td id="date" th:text="${t.subDate}">Data</td>
+                    </tr>
+                </th:block>
+            </table>
 
-asd
-
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -1,12 +1,21 @@
 package com.mszal.tutor.Controller;
+import com.mszal.tutor.Entity.Tutorial;
 import com.mszal.tutor.Service.PasswordEncoderGenerator;
+import com.mszal.tutor.Service.TutorialService;
 import com.mszal.tutor.Service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
+import java.util.ArrayList;
+
 /**
  * Created by Mateusz on 2018-11-04.
  */
@@ -14,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private TutorialService tutorialService;
 
     /**
      * Metoda ta zwraca formularz rejestracyjny
@@ -56,5 +67,26 @@ public class UserController {
     @RequestMapping(value={"/login"},method=RequestMethod.POST)
     public String loged(){
         return "redirect:/";
+    }
+    @GetMapping("/mytutorials")
+    public String getAllUserTutorials(HttpServletRequest request,Model model){
+        try {
+            Principal principal = request.getUserPrincipal();
+            System.out.println(principal.getName());
+            int id=userService.getUserByName(principal.getName());
+            System.out.println(id);
+            int size=this.tutorialService.getAllUserTut(id).size();
+            if (size>0){
+                model.addAttribute("tutorials",this.tutorialService.getAllUserTut(id));
+            }else{
+                ArrayList<Tutorial> tut=new ArrayList<>();
+                Tutorial tutNotFound=new Tutorial(0,"","Brak utworzonych kursów","","notFoundTut.jpg",0,0,0,0);
+                tut.add(tutNotFound);
+                model.addAttribute("tutorials",tut);
+            }
+        }catch(Exception ex){
+            System.out.println("anonymous");
+        }
+        return "mytutorials";
     }
 }
