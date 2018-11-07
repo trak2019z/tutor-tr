@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/4.1.2/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" th:href="@{/css/main.css}"
+          href="../../css/main.css"/>
+    <style>
+        .jumbotron h1, .jumbotron p {
+            padding-left: 60px;
+            padding-right: 60px;
+        }
+
+        .col-md {
+            margin: 0 auto;
+            max-width: 500px
+        }
+        .dropzone {
+            border: 4px dashed #ccc;
+            height: 200px;
+            margin: 0 10px;
+            position: relative;
+            width: auto;
+        }
+
+        .dropzone p {
+            height: 100%;
+            line-height: 200px;
+            margin: 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        .dropzone input[type="file"] {
+            height: 100%;
+            left: 0;
+            outline: none;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+
+        .dropzone + .status {
+            border-radius: 5px;
+            margin: 10px 10px 0;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .dropzone.dropzone-dragging {
+            border-color: black
+        }
+
+        .loading-modal {
+            background-color: rgba( 255, 255, 255, .8 );
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        .loading-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -16px 0 0 -16px
+        }
+
+        body.busy .loading-modal {
+            display: block;
+        }
+    </style>
+
+</head>
+<body>
+<div th:replace="headers/hormenu :: header"/>
+
+<div class="col-md">
+    <div class="dropzone"></div>
+</div>
+
+<script type="text/javascript" src="../js/imgur.min.js"></script>
+<script type="text/javascript">
+    var feedback = function (res) {
+        if (res.success === true) {
+            var status = document.querySelector('.status');
+            var p = document.createElement('p');
+            var t = document.createTextNode('Image url: ' + res.data.link);
+
+            p.appendChild(t);
+
+            status.classList.add('bg-success');
+            status.appendChild(p);
+            // document.querySelector('.status').innerHTML = 'Image url: ' + res.data.link;
+        }
+    };
+
+    new Imgur({
+        clientid: 'd9148490b391597',
+        callback: feedback
+    });
+</script>
+<textarea>Tekst, który możecie dowolnie edytować.</textarea>
+
+
+</body>
+</html>

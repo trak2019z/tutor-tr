@@ -43,4 +43,8 @@ public class TutController {
       }
         return "tut";
     }
+    @GetMapping("/addtutorial")
+    public String addTutorial(Model model){
+        return "addtutorial";
+    }
 }
