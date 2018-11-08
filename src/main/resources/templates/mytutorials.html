@@ -25,12 +25,15 @@
             </div>
 
         </div>
+        <th:block th:each="t : ${tutorials}">
         <div class="col-md-3 ">
             <table>
-                <th:block th:each="t : ${tutorials}">
+
                     <tr>
-                        <td><img class="img-fluid" th:src="@{${'/img/'+ t.imgName }}" alt="TutImg"/></td>
+                        <td th:if="${t.tutId}=='0'"><img class="img-fluid" th:src="@{${'/img/'+t.imgName }}" alt="TutImg"/></td>
+                        <td th:if="${t.tutId}!='0'"><img class="img-fluid" th:src="@{${ t.imgName }}" alt="TutImg"/></td>
                     </tr>
+
                     <tr>
                         <td th:text="${t.name}"></td>
                     </tr>
@@ -43,10 +46,11 @@
                     <tr>
                         <td id="date" th:text="${t.subDate}">Data</td>
                     </tr>
-                </th:block>
+
             </table>
 
         </div>
+        </th:block>
     </div>
 </div>
 

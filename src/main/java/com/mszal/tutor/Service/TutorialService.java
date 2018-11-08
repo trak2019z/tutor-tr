@@ -21,4 +21,7 @@ public class TutorialService {
     public Collection<Tutorial> getAllTutorials(){
         return this.tutorialDao.getAllTutorial();
     }
+    public void addTutorial(String name,String desc,String imgUrl,int userId,int catId){
+        this.tutorialDao.addTutorial(name,desc,imgUrl,userId,catId);
+    }
 }

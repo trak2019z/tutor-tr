@@ -28,4 +28,10 @@ public class TutorialDaoImpl implements TutorialDao {
         Collection<Tutorial> tutorials=jdbcTemplate.query(sql,new BeanPropertyRowMapper(Tutorial.class));
         return tutorials;
     }
+
+    @Override
+    public void addTutorial(String name, String desc, String imgUrl,int userId, int catId) {
+        final String sql="Insert Into tutorial (name,description,imgName,userId,catId) Values (?,?,?,?,?)";
+        jdbcTemplate.update(sql,new Object[]{name,desc,imgUrl,userId,catId});
+    }
 }

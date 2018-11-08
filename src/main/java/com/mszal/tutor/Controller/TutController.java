@@ -1,12 +1,16 @@
 package com.mszal.tutor.Controller;
 
 import com.mszal.tutor.Entity.Tutorial;
+import com.mszal.tutor.Service.CategoryService;
 import com.mszal.tutor.Service.TutorialService;
 import com.mszal.tutor.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -20,18 +24,11 @@ public class TutController {
     UserService us;
     @Autowired
     TutorialService tutorialService;
+    @Autowired
+    CategoryService categoryService;
     @GetMapping("/")
     public String tut(Model model,HttpServletRequest request){
-      /*  try {
-            Principal principal = request.getUserPrincipal();
-            System.out.println(principal.getName());
 
-
-            int id=us.getUserByName(principal.getName());
-            System.out.println(id);
-        }catch(Exception ex){
-            System.out.println("anonymous");
-        }*/
       int size=this.tutorialService.getAllTutorials().size();
       if(size>0){
           model.addAttribute("tutorials",this.tutorialService.getAllTutorials());
@@ -45,6 +42,20 @@ public class TutController {
     }
     @GetMapping("/addtutorial")
     public String addTutorial(Model model){
+        model.addAttribute("categories",this.categoryService.getAllCategories());
         return "addtutorial";
+    }
+    @PostMapping("/addtutorial")
+    public String addTutorial(@RequestParam(value = "sendImg", defaultValue = " ") String sendImg,
+                              @RequestParam(value = "nazPor", defaultValue = " ") String tutName,
+                              @RequestParam(value = "opisPor", defaultValue = " ") String tutDesc,
+                              @RequestParam(value = "kat", defaultValue = " ") String cat,
+                              @RequestParam(value = "userName", defaultValue = " ") String uName){
+        System.out.println(sendImg);
+        int userId=this.us.getUserByName(uName);
+        int catId=this.categoryService.getCategoryId(cat);
+        this.tutorialService.addTutorial(tutName,tutDesc,sendImg,userId,catId);
+
+        return "redirect:/mytutorials";
     }
 }
