@@ -17,7 +17,8 @@
     <div class="row">
         <div class="col-md-2 p-l-0 p-r-0 " id="sidebar">
             <div class="list-group panel">
-                <a href="/addtutorial" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-film"></i> <span
+                <a href="/addtutorial" class="list-group-item collapsed" data-parent="#sidebar"><i
+                        class="fa fa-film"></i> <span
                         class="hidden-sm-down">Stwórz nowy tutorial</span></a>
                 <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-film"></i> <span
                         class="hidden-sm-down">...</span></a>
@@ -26,14 +27,16 @@
 
         </div>
         <th:block th:each="t : ${tutorials}">
-        <div class="col-md-3 ">
-            <table>
+            <div class="col-md-3 ">
+                <table>
 
                     <tr>
-                        <td th:if="${t.tutId}=='0'"><img class="img-fluid" th:src="@{${'/img/'+t.imgName }}" alt="TutImg"/></td>
-                        <td th:if="${t.tutId}!='0'"><img class="img-fluid" th:src="@{${ t.imgName }}" alt="TutImg"/></td>
+                        <td th:if="${t.tutId}=='0'"><img class="img-fluid" th:src="@{${'/img/'+t.imgName }}"
+                                                         alt="TutImg"/></td>
+                        <td th:if="${t.tutId}!='0'"><img class="img-fluid" th:src="@{${ t.imgName }}" alt="TutImg"/>
+                        </td>
                     </tr>
-                    
+
                     <tr>
                         <td th:text="${t.name}"></td>
                     </tr>
@@ -46,10 +49,15 @@
                     <tr>
                         <td id="date" th:text="${t.subDate}">Data</td>
                     </tr>
+                    <tr>
+                        <form th:action="@{/addsubtut}" method="GET">
+                         <td><input class="btn btn-lg btn-sub btn-block" type="submit" value="Dodaj lekcję"/></td>
+                        </form>
+                    </tr>
 
-            </table>
+                </table>
 
-        </div>
+            </div>
         </th:block>
     </div>
 </div>
