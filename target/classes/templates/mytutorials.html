@@ -51,6 +51,7 @@
                     </tr>
                     <tr>
                         <form th:action="@{/addsubtut}" method="GET">
+                            <input type="hidden" th:name="idTut" th:value="${t.tutId}"/>
                          <td><input class="btn btn-lg btn-sub btn-block" type="submit" value="Dodaj lekcję"/></td>
                         </form>
                     </tr>

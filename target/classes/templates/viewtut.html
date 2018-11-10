@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/4.1.2/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" th:href="@{/css/main.css}"
+          href="../../css/main.css"/>
+
+</head>
+<body>
+<div th:replace="headers/hormenu :: header"/>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 p-l-0 p-r-0 " id="sidebar">
+            <div class="list-group panel">
+                <th:block th:each="s : ${subtutorials}">
+                <a th:href="@{'/viewtut?idTut='+${tutId}+'&amp;lesson='+${s.lessNumb}}" class="list-group-item collapsed" data-parent="#sidebar" th:text="${s.subject}"><i
+                        class="fa fa-film"></i> <span
+                        class="hidden-sm-down"></span></a>
+                </th:block>
+
+            </div>
+
+        </div>
+        <div class="col-md-8 ">
+            <table>
+
+
+                <tr>
+                    <td th:text="${lesson.subject}"></td>
+                </tr>
+                <tr>
+                    <td th:text="${lesson.content}"></td>
+                </tr>
+                <tr>
+                    <td th:text="${lesson.lessNumb}"></td>
+                </tr>
+
+
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+</html>
