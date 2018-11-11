@@ -17,7 +17,7 @@
         <div class="col-md-2 p-l-0 p-r-0 " id="sidebar">
             <div class="list-group panel">
                 <th:block th:each="s : ${subtutorials}">
-                <a th:href="@{'/viewtut?idTut='+${tutId}+'&amp;lesson='+${s.lessNumb}}" class="list-group-item collapsed" data-parent="#sidebar" th:text="${s.subject}"><i
+                <a th:href="@{'/viewtut?idTut='+${tutId}+'&amp;lesson='+${s.lessNumb}}" class="list-group-item collapsed" data-parent="#sidebar" th:text="${s.lessNumb + '. ' +s.subject}"><i
                         class="fa fa-film"></i> <span
                         class="hidden-sm-down"></span></a>
                 </th:block>
@@ -26,19 +26,14 @@
 
         </div>
         <div class="col-md-8 ">
-            <table>
-
-
+            <h3 align="center" th:text="${lesson.lessNumb + '. ' +lesson.subject}"></h3>
+            <table th:each="t,iterStat:${textDisplay}">
                 <tr>
-                    <td th:text="${lesson.subject}"></td>
+                    <td th:text="${t}"></td>
                 </tr>
                 <tr>
-                    <td th:text="${lesson.content}"></td>
+                    <td th:if="${imagesUrl[__${iterStat.index}__]}!='null'" ><img align="center" class="img-fluid" th:src="@{${imagesUrl[__${iterStat.index}__]}}" alt="image" width="750" height="500" /></td>
                 </tr>
-                <tr>
-                    <td th:text="${lesson.lessNumb}"></td>
-                </tr>
-
 
             </table>
         </div>

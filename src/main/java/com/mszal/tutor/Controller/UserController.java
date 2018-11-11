@@ -47,7 +47,7 @@ public class UserController {
                           @RequestParam(value = "password", defaultValue = " ") String password,
                           @RequestParam(value = "email", defaultValue = " ") String email) {
 
-        if (!username.contains(" ")&&!password.contains(" ")){ userService.addUser(username, PasswordEncoderGenerator.encode(password),email); return "redirect:/posts";}
+        if (!username.contains(" ")&&!password.contains(" ")){ userService.addUser(username, PasswordEncoderGenerator.encode(password),email); return "redirect:/";}
         else return "register";
     }
 

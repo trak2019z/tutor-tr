@@ -24,7 +24,8 @@ public class TutorialDaoImpl implements TutorialDao {
 
     @Override
     public Collection<Tutorial> getAllTutorial() {
-        final String sql="Select * from tutorial";
+        //final String sql="Select * from tutorial";
+        final String sql="select * from tutorial t where t.tutId in (select s.idTut from subtutorial s)";
         Collection<Tutorial> tutorials=jdbcTemplate.query(sql,new BeanPropertyRowMapper(Tutorial.class));
         return tutorials;
     }

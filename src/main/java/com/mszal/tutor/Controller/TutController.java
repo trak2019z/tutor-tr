@@ -12,10 +12,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.thymeleaf.util.ArrayUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Mateusz on 2018-11-04.
@@ -69,16 +72,42 @@ public class TutController {
     @GetMapping("/viewtut")
     public String viewTutorial(@RequestParam(value = "idTut", defaultValue = "1") String tutId,
                                @RequestParam(value = "lesson", defaultValue = "1") String lesson, Model model) {
-        SubTutorial s=new SubTutorial();
+        SubTutorial s;
 
         System.out.print(lesson);
         int tutorialId=Integer.parseInt(tutId);
         int lessonInt=Integer.parseInt(lesson);
         s=this.subTutService.getEntireLesson(tutorialId,lessonInt);
+        String cont=s.getContent();
+        String[] splitCont=cont.split("\\*imgUrl\\*");
+        List<String> list = Arrays.asList(splitCont);
+        ArrayList<String> splitList=new ArrayList<>(list);
+        ArrayList textList=new ArrayList();
+        ArrayList imgUrlList=new ArrayList();
+        if(splitList.size()%2!=0){
+            splitList.add("null");
+        }
+        int iterator = 1;
+        for (String sC : splitList) {
+            if (iterator % 2 == 0) {
+                imgUrlList.add(sC);
+                // System.out.println("zdjecia " + sC);
+            } else {
+                textList.add(sC);
+                //System.out.println("text " + sC);
+            }
+            iterator++;
+        }
+
+
+
+       // s.setSubject("testsubtutorialobiektuprzypisaniaitp");
+        model.addAttribute("imagesUrl",imgUrlList);
+        model.addAttribute("textDisplay",textList);
         System.out.println(s.getSubject());
         model.addAttribute("tutId",tutId);
         model.addAttribute("subtutorials",this.subTutService.getAllLessons(tutorialId));
-        model.addAttribute("lesson",this.subTutService.getEntireLesson(tutorialId,lessonInt));
+        model.addAttribute("lesson",s);
         return "viewTut";
     }
 }
