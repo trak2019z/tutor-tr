@@ -13,4 +13,5 @@ public interface SubTutDao {
     int checkLessonCount(int idTut);
     List<SubTutorial> getAllLessons(int tutId);
     SubTutorial getEntireLesson(int tutId,int lessNumb);
+    int getLessonId(int tutId,int lessNumb);
 }

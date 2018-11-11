@@ -1,0 +1,12 @@
+
+.nameTutorial{
+    font-size: 24px;
+    font-weight: bold;
+}
+.tutDescription{
+    font-size: 15px;
+}
+.subDate{
+    font-size: 12px;
+    text-align:right;
+}

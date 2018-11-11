@@ -29,4 +29,7 @@ public class SubTutService {
     public SubTutorial getEntireLesson(int tutId,int lessNumb){
         return this.subTutDao.getEntireLesson(tutId,lessNumb);
     }
+    public int getLessonId(int tutId,int lessNumb){
+        return this.subTutDao.getLessonId(tutId,lessNumb);
+    }
 }

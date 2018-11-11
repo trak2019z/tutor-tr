@@ -1,17 +1,16 @@
 package com.mszal.tutor.Controller;
 
+import com.mszal.tutor.Entity.Comment;
 import com.mszal.tutor.Entity.SubTutorial;
 import com.mszal.tutor.Entity.Tutorial;
-import com.mszal.tutor.Service.CategoryService;
-import com.mszal.tutor.Service.SubTutService;
-import com.mszal.tutor.Service.TutorialService;
-import com.mszal.tutor.Service.UserService;
+import com.mszal.tutor.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.util.ArrayUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,13 +25,15 @@ import java.util.List;
 @Controller
 public class TutController {
     @Autowired
-    SubTutService subTutService;
+    private CommentService commentService;
     @Autowired
-    UserService us;
+    private SubTutService subTutService;
     @Autowired
-    TutorialService tutorialService;
+    private UserService us;
     @Autowired
-    CategoryService categoryService;
+    private TutorialService tutorialService;
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping("/")
     public String tut(Model model, HttpServletRequest request) {
@@ -75,16 +76,16 @@ public class TutController {
         SubTutorial s;
 
         System.out.print(lesson);
-        int tutorialId=Integer.parseInt(tutId);
-        int lessonInt=Integer.parseInt(lesson);
-        s=this.subTutService.getEntireLesson(tutorialId,lessonInt);
-        String cont=s.getContent();
-        String[] splitCont=cont.split("\\*imgUrl\\*");
+        int tutorialId = Integer.parseInt(tutId);
+        int lessonInt = Integer.parseInt(lesson);
+        s = this.subTutService.getEntireLesson(tutorialId, lessonInt);
+        String cont = s.getContent();
+        String[] splitCont = cont.split("\\*imgUrl\\*");
         List<String> list = Arrays.asList(splitCont);
-        ArrayList<String> splitList=new ArrayList<>(list);
-        ArrayList textList=new ArrayList();
-        ArrayList imgUrlList=new ArrayList();
-        if(splitList.size()%2!=0){
+        ArrayList<String> splitList = new ArrayList<>(list);
+        ArrayList textList = new ArrayList();
+        ArrayList imgUrlList = new ArrayList();
+        if (splitList.size() % 2 != 0) {
             splitList.add("null");
         }
         int iterator = 1;
@@ -98,16 +99,34 @@ public class TutController {
             }
             iterator++;
         }
-
-
-
-       // s.setSubject("testsubtutorialobiektuprzypisaniaitp");
-        model.addAttribute("imagesUrl",imgUrlList);
-        model.addAttribute("textDisplay",textList);
+        int subTutId=this.subTutService.getLessonId(tutorialId,lessonInt);
+        List<Comment> comments=this.commentService.getComments(subTutId);
+        if (comments.size()==0){
+            Comment com=new Comment(0,"Brak komentarzy do tego wątku. Dodaj go jako pierwszy.","0",0,0);
+            comments.add(com);
+        }
+        model.addAttribute("imagesUrl", imgUrlList);
+        model.addAttribute("textDisplay", textList);
         System.out.println(s.getSubject());
-        model.addAttribute("tutId",tutId);
-        model.addAttribute("subtutorials",this.subTutService.getAllLessons(tutorialId));
-        model.addAttribute("lesson",s);
+        model.addAttribute("tutId", tutId);
+        model.addAttribute("subtutorials", this.subTutService.getAllLessons(tutorialId));
+        model.addAttribute("lesson", s);
+        model.addAttribute("comments",comments);
         return "viewTut";
+    }
+    @PostMapping("/viewtut")
+    public ModelAndView viewTut(@RequestParam(value = "comment", defaultValue = " ") String comm,
+                                @RequestParam(value = "userName", defaultValue = " ") String uName,
+                                @RequestParam(value = "sTutId", defaultValue = "1") String sTutId,
+                                @RequestParam(value = "idTutorial", defaultValue = "1") String tutId,
+                                @RequestParam(value = "lessNumb", defaultValue = "1") String lessNumb){
+        System.out.println(comm + uName + sTutId + tutId + lessNumb);
+        int subTutInt=Integer.parseInt(sTutId);
+        int userId=this.us.getUserByName(uName);
+        this.commentService.addComment(comm,userId,subTutInt);
+        ModelAndView m=new ModelAndView("redirect:/viewtut");
+        m.addObject("idTut",tutId);
+        m.addObject("lesson",lessNumb);
+        return m;
     }
 }

@@ -55,4 +55,11 @@ public class SubTutDaoImpl implements SubTutDao {
         SubTutorial entLesson=jdbc.queryForObject(sql,new Object[]{tutId,lessNumb},new BeanPropertyRowMapper<>(SubTutorial.class));
         return entLesson;
     }
+
+    @Override
+    public int getLessonId(int tutId, int lessNumb) {
+        final String sql="Select subTutId from subtutorial Where idTut=? and lessNumb=?";
+        int subTutId=jdbc.queryForObject(sql,new Object[]{tutId,lessNumb},Integer.class);
+        return subTutId;
+    }
 }
