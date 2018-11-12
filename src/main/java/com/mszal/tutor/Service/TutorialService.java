@@ -24,4 +24,13 @@ public class TutorialService {
     public void addTutorial(String name,String desc,String imgUrl,int userId,int catId){
         this.tutorialDao.addTutorial(name,desc,imgUrl,userId,catId);
     }
+    public Collection<Tutorial> getAllBlockedTut(){
+        return this.tutorialDao.getAllBlockedTut();
+    }
+    public void blockTutorial(int tutId){
+        this.tutorialDao.blockTutorial(tutId);
+    }
+    public void unlockTutorial(int tutId){
+        this.tutorialDao.unlockTutorial(tutId);
+    }
 }

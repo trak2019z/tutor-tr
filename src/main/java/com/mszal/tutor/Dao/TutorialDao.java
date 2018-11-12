@@ -11,4 +11,7 @@ public interface TutorialDao {
     Collection<Tutorial> getAllUserTut(int userId);
     Collection<Tutorial> getAllTutorial();
     void addTutorial(String name,String desc,String imgUrl,int userId,int catId);
+    Collection<Tutorial> getAllBlockedTut();
+    void blockTutorial(int tutId);
+    void unlockTutorial(int tutId);
 }

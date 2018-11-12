@@ -32,6 +32,11 @@
                         <a class="nav-link" href="/help">Pomoc</a>
                     </li>
                 </td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/block">Zablokowane tutoriale</a>
+                    </li>
+                </td>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <td sec:authorize="isAnonymous()">

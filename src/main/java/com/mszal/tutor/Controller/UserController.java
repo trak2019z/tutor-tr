@@ -80,7 +80,7 @@ public class UserController {
                 model.addAttribute("tutorials",this.tutorialService.getAllUserTut(id));
             }else{
                 ArrayList<Tutorial> tut=new ArrayList<>();
-                Tutorial tutNotFound=new Tutorial(0,"","Brak utworzonych kursów","","notFoundTut.jpg",0,0,0,0);
+                Tutorial tutNotFound=new Tutorial(0,"","Brak utworzonych kursów","","notFoundTut.jpg",0,0,0,0,"unlock");
                 tut.add(tutNotFound);
                 model.addAttribute("tutorials",tut);
             }

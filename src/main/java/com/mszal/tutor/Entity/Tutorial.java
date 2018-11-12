@@ -13,12 +13,14 @@ public class Tutorial {
     private int opinionCounts;
     private int userId;
     private int catId;
+    private String status;
 
 
     public Tutorial() {
+
     }
 
-    public Tutorial(int tutId, String subDate, String name, String description, String imgName, int marks, int opinionCounts, int userId, int catId) {
+    public Tutorial(int tutId, String subDate, String name, String description, String imgName, int marks, int opinionCounts, int userId, int catId, String status) {
         this.tutId = tutId;
         this.subDate = subDate;
         this.name = name;
@@ -28,6 +30,15 @@ public class Tutorial {
         this.opinionCounts = opinionCounts;
         this.userId = userId;
         this.catId = catId;
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public int getTutId() {
@@ -93,6 +104,7 @@ public class Tutorial {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
     public int getCatId() {
         return catId;
     }

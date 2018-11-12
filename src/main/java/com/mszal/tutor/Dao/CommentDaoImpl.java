@@ -30,4 +30,11 @@ public class CommentDaoImpl implements CommentDao{
         List<Comment> comments=jdbc.query(sql,new BeanPropertyRowMapper<>(Comment.class),subTutId);
         return comments;
     }
+
+    @Override
+    public void deleteComment(int commId) {
+        final String message="Komentarz został usunięty z powodu naruszenia regulaminu";
+        final String sql="Update comment Set content=?,userId=0 Where commentId=?";
+        jdbc.update(sql,new Object[]{message,commId});
+    }
 }

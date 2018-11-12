@@ -20,4 +20,7 @@ public class CommentService {
     public List<Comment> getComments(int subTutId){
         return this.commentDao.getComments(subTutId);
     }
+    public void deleteComment(int commId){
+        this.commentDao.deleteComment(commId);
+    }
 }

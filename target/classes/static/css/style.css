@@ -10,3 +10,12 @@
     font-size: 12px;
     text-align:right;
 }
+.btn-getblock{
+    background-color: #B32F24; !important;
+}
+.btn-unl{
+    background-color: #76bf01;
+}
+.glyphcolor{
+    color:#B32F24; !important;
+}

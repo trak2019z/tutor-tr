@@ -43,7 +43,7 @@ public class TutController {
             model.addAttribute("tutorials", this.tutorialService.getAllTutorials());
         } else {
             ArrayList<Tutorial> tut = new ArrayList<>();
-            Tutorial tutNotFound = new Tutorial(0, "", "Brak dostępnych kursów", "", "notFoundTut.jpg", 0, 0, 0, 0);
+            Tutorial tutNotFound = new Tutorial(0, "", "Brak dostępnych kursów", "", "notFoundTut.jpg", 0, 0, 0, 0,"unlock");
             tut.add(tutNotFound);
             model.addAttribute("tutorials", tut);
         }
@@ -128,5 +128,9 @@ public class TutController {
         m.addObject("idTut",tutId);
         m.addObject("lesson",lessNumb);
         return m;
+    }
+    @GetMapping("/help")
+    public String help(){
+        return "/help";
     }
 }

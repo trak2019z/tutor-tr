@@ -10,4 +10,5 @@ import java.util.List;
 public interface CommentDao {
     void addComment(String content, int userId, int subTutId);
     List<Comment> getComments(int subTutId);
+    void deleteComment(int commId);
 }
