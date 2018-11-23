@@ -1,5 +1,6 @@
 package com.mszal.tutor.Dao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -39,6 +40,17 @@ public class UserDaoImpl implements UserDao {
         return id;
 
 
+    }
+
+    @Override
+    public boolean checkLogin(String login) {
+        try{
+            final String sql="SELECT userId FROM user WHERE login=?";
+            int id = jdbcTemplate.queryForObject(sql, new Object[]{login}, Integer.class);
+            return true;
+        }catch(EmptyResultDataAccessException ex){
+            return false;
+        }
     }
 
 }

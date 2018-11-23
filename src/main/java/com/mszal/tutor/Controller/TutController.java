@@ -112,7 +112,7 @@ public class TutController {
         model.addAttribute("subtutorials", this.subTutService.getAllLessons(tutorialId));
         model.addAttribute("lesson", s);
         model.addAttribute("comments",comments);
-        return "viewTut";
+        return "viewtut";
     }
     @PostMapping("/viewtut")
     public ModelAndView viewTut(@RequestParam(value = "comment", defaultValue = " ") String comm,
@@ -129,8 +129,12 @@ public class TutController {
         m.addObject("lesson",lessNumb);
         return m;
     }
-    @GetMapping("/help")
-    public String help(){
-        return "/help";
+    @GetMapping("/help1")
+    public String helpG(){
+        return "help1";
+    }
+    @PostMapping("/help1")
+    public String helpP(){
+        return "help1";
     }
 }

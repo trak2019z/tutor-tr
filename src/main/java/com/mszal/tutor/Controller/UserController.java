@@ -43,12 +43,34 @@ public class UserController {
      * @return Jeżeli wprowadzone w formularzu dane są niepoprawne zwracany jest widok formularza rejestracyjnego, w przeciwnym wypadku użykownik jest przenoszony do strony głównej
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String addUser(@RequestParam(value = "username", defaultValue = " ") String username,
-                          @RequestParam(value = "password", defaultValue = " ") String password,
-                          @RequestParam(value = "email", defaultValue = " ") String email) {
+    public String addUser(@RequestParam(value = "username", defaultValue = "") String username,
+                          @RequestParam(value = "password", defaultValue = "") String password,
+                          @RequestParam(value = "password1", defaultValue = "") String password1,
+                          @RequestParam(value = "email", defaultValue = "") String email, Model model) {
 
-        if (!username.contains(" ")&&!password.contains(" ")){ userService.addUser(username, PasswordEncoderGenerator.encode(password),email); return "redirect:/";}
-        else return "register";
+        /*if (!username.contains(" ")&&!password.contains(" ")){ userService.addUser(username, PasswordEncoderGenerator.encode(password),email); return "redirect:/";}
+        else return "register";*/
+        if(userService.checkIfFieldIsEmpty(username) || userService.checkIfFieldIsEmpty(password)
+                || userService.checkIfFieldIsEmpty(password1) || userService.checkIfFieldIsEmpty(email)){
+            model.addAttribute("emptyField","true");
+            return "register";
+        }
+        if(userService.checkIfFieldContainsSpace(username) || userService.checkIfFieldContainsSpace(password)
+                || userService.checkIfFieldContainsSpace(password1) || userService.checkIfFieldContainsSpace(email)){
+            model.addAttribute("space","true");
+            return "register";
+        }
+        if(!password.equals(password1)){
+            model.addAttribute("incorrectPassword","true");
+            return "register";
+        }
+        if(userService.checkLogin(username)){
+            model.addAttribute("loginExist","true");
+            return "register";
+        }
+        userService.addUser(username, PasswordEncoderGenerator.encode(password),email);
+        model.addAttribute("succes","true");
+        return "register";
     }
 
     /**

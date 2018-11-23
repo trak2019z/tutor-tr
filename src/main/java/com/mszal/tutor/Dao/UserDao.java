@@ -18,4 +18,5 @@ public interface UserDao {
      * @return Uzytkownik o określonej nazwie
      */
     int getUserByName(String name);
+    boolean checkLogin (String login);
 }

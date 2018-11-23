@@ -29,4 +29,21 @@ public class UserService {
     public int getUserByName(String name){
         return this.userDao.getUserByName(name);
     }
+    public boolean checkIfFieldContainsSpace(String field){
+        if(field.contains(" ")){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public boolean checkIfFieldIsEmpty(String field){
+        if(field.equals(null) || field.equals("")){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public boolean checkLogin(String login){
+       return this.userDao.checkLogin(login);
+    }
 }
